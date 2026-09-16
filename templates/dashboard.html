@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="topo-conteudo">
+        <span class="topo-selo">GC</span>
+        <div>
+            <h1>Gestão de Clientes</h1>
+            <p class="topo-sub">Painel geral</p>
+        </div>
+        <nav class="menu">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/clientes">Clientes</a>
+            <a href="/servicos">Serviços</a>
+            <a href="/logout">Sair</a>
+        </nav>
+    </div>
+</header>
+
+    <main>
+
+        <section class="cartao">
+            <h2><span class="marcador"></span>Resumo do sistema</h2>
+
+            <div class="grade-estatisticas">
+
+                <div class="estatistica">
+                    <span class="estatistica-rotulo">Clientes cadastrados</span>
+                    <span class="estatistica-valor">{{ total_clientes }}</span>
+                </div>
+
+                <div class="estatistica">
+                    <span class="estatistica-rotulo">Serviços realizados</span>
+                    <span class="estatistica-valor">{{ total_servicos }}</span>
+                </div>
+
+                <div class="estatistica estatistica-destaque">
+                    <span class="estatistica-rotulo">Valor total</span>
+                    <span class="estatistica-valor">R$ {{ "%.2f"|format(valor_total) }}</span>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="cartao">
+            <h2><span class="marcador"></span>Clientes e serviços</h2>
+
+            {% if detalhes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Serviço</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in detalhes %}
+                    <tr>
+                        <td class="nome-cliente">{{ item.cliente_nome }}</td>
+                        <td>{{ item.descricao }}</td>
+                        <td>R$ {{ "%.2f"|format(item.valor) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="vazio">Nenhum serviço cadastrado ainda.</p>
+            {% endif %}
+        </section>
+
+    </main>
+
+</body>
+</html>

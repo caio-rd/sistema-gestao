@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Serviço</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="topo-conteudo">
+        <span class="topo-selo">GC</span>
+        <div>
+            <h1>Gestão de Clientes</h1>
+            <p class="topo-sub">Editar serviços</p>
+        </div>
+        <nav class="menu">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/clientes">Clientes</a>
+            <a href="/servicos">Serviços</a>
+            <a href="/logout">Sair</a>
+        </nav>
+    </div>
+</header>
+    <main>
+
+        <section class="cartao form-cartao">
+            <h2><span class="marcador"></span>Editar serviço</h2>
+            <form action="/servicos/{{ servicos.id }}/editar" method="POST">
+                <div class="campo">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" name="descricao" value="{{ servicos.descricao }}" required>
+                </div>
+
+                <div class="campo">
+                    <label for="valor">Valor (R$)</label>
+                    <input type="number" step="0.01" id="valor" name="valor" value="{{ servicos.valor }}">
+                </div>
+
+                <div class="botoes-form">
+                    <a href="/servicos" class="botao-cancelar">Cancelar</a>
+                    <button type="submit">Salvar alterações</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+</body>
+</html>

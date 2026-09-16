@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="topo-conteudo">
+        <span class="topo-selo">GC</span>
+        <div>
+            <h1>Gestão de Clientes</h1>
+            <p class="topo-sub">Serviços prestados</p>
+        </div>
+        <nav class="menu">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/clientes">Clientes</a>
+            <a href="/servicos">Serviços</a>
+            <a href="/logout">Sair</a>
+        </nav>
+    </div>
+</header>
+    <main>
+
+        <section class="cartao form-cartao">
+            <h2><span class="marcador"></span>Cadastrar novo serviço</h2>
+            <form action="/servicos" method="POST">
+                <div class="campo">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" name="descricao" required>
+                </div>
+
+                <div class="campo">
+                    <label for="valor">Valor (R$)</label>
+                    <input type="number" step="0.01" id="valor" name="valor">
+                </div>
+
+                <div class="campo">
+                    <label for="cliente_id">Cliente</label>
+                    <select id="cliente_id" name="cliente_id" required>
+                        <option value="" disabled selected>Selecione um cliente</option>
+                        {% for cliente in clientes %}
+                        <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit">Cadastrar serviço</button>
+            </form>
+        </section>
+
+        <section class="cartao">
+            <h2><span class="marcador"></span>Serviços cadastrados</h2>
+
+            {% if servicos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Cliente</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for servico in servicos %}
+                    <tr>
+                        <td><span class="id-selo">{{ servico.id }}</span></td>
+                        <td class="nome-cliente">{{ servico.descricao }}</td>
+                        <td>{{ servico.clientes_nome }}</td>
+                        <td>R$ {{ "%.2f"|format(servico.valor) }}</td>
+                        <td class="celula-acoes">
+                            <a href="/servicos/{{ servico.id }}/editar" class="botao-editar">Editar</a>
+                            <form action="/servicos/{{ servico.id }}/excluir" method="POST" class="form-excluir">
+                                <button type="submit" class="botao-excluir" onclick="return confirm('Tem certeza que deseja excluir este serviço?')">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="vazio">Nenhum serviço cadastrado ainda.</p>
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+</html>

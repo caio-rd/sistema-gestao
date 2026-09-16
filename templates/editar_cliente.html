@@ -1,0 +1,58 @@
+<!-- ===== EDITAR CLIENTES ===== -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cliente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="topo-conteudo">
+        <span class="topo-selo">GC</span>
+        <div>
+            <h1>Gestão de Clientes</h1>
+            <p class="topo-sub">Editar cliente</p>
+        </div>
+        <nav class="menu">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/clientes">Clientes</a>
+            <a href="/servicos">Serviços</a>
+            <a href="/logout">Sair</a>
+        </nav>
+    </div>
+</header>
+    <main>
+
+        <section class="cartao form-cartao">
+            <h2><span class="marcador"></span>Editar cliente</h2>
+            <form action="/clientes/{{ cliente.id }}/editar" method="POST">
+                <div class="campo">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" value="{{ cliente.nome }}" required>
+                </div>
+
+                <div class="campo">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" value="{{ cliente.telefone }}">
+                </div>
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" value="{{ cliente.email }}">
+                </div>
+
+                <div class="botoes-form">
+                    <a href="/clientes" class="botao-cancelar">Cancelar</a>
+                    <button type="submit">Salvar alterações</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+</body>
+</html>
